@@ -10,7 +10,7 @@
     
     <div class="rounded-lg p-12 bg-white shadow max-w-md"> <!--p-6があると箱っぽく見える、w-fullが綺麗に効く-->
     
-    <form id=""><!--「この入力たちは1つの入力フォームですよ」とHTMLに伝えるタグ-->
+    <form id="form" novalidate><!--「この入力たちは1つの入力フォームですよ」とHTMLに伝えるタグ-->
         <label class="font-bold">name</label><!--特定の入力欄と紐づく名前を表すタグという意味-->
         <input 
         type="text" 
@@ -26,7 +26,7 @@
         type="email" 
         class="border shadow focus:outline-none focus:ring-2 focus:ring-blue-400 rounded w-full " 
         required
-        id="mail"
+        id="email"
         >   <!--border忘れない,
             requiredはHTMLの入力欄（<input>や<textarea>など）に付ける属性で、その欄への入力を必須にするもの
             focus:は「フォーカスされている時だけ、このスタイルを適用する」という条件を表す接頭辞-->
@@ -43,18 +43,18 @@
             focus:は「フォーカスされている時だけ、このスタイルを適用する」という条件を表す接頭辞-->
     
         <div>
-            <input type="checkbox" class="mt-4">
+            <input type="checkbox" class="mt-4" id="agree">
             <label for="agree" class="">利用規約に同意する</label>
         </div>
 
-        <p id="massage" text-sm></p>
+        <p id="message" text-sm></p>
     </form>
 
     </div>
 
     <script>
         const form = document.querySelector("form")
-        const massage = document.querySelector("massage")
+        const message = document.querySelector("message")
 
         form.addEventListener("submit", (event) => {
             event.preventDefault();//一瞬でリロードしてしまうのを防ぐため
@@ -62,29 +62,29 @@
             const name = document.getElementById("name").value.trim();
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;//passwordは空白も意味を持つのでtrimなし
-            const agree = document.getElementById("agree").value.trim();
+            const agree = document.getElementById("agree").checked;
 
             if (name === "") {
                 message.textContent = "お名前を入力してください"
-                message.textContent = "text-sm font-medium"
+                message.className = "text-sm font-medium"
                 return;
             }//returnの後に何も返さないという意味
 
             if (email === "") {
                 message.textContent = "メールアドレスを打ってください"
-                message.textContent = "text-sm font-medium"
+                message.className = "text-sm font-medium"
                 return;
             }//returnの後に何も返さないという意味
         
             if (password.length < 8 ) {
                 message.textContent = "パスワードを入力してください"
-                message.textContent = "text-sm font-medium"
+                message.className = "text-sm font-medium"
                 return;
             }//returnの後に何も返さないという意味
         
             if (!agree) {
                 message.textContent = "利用規約に同意してください"
-                message.textContent = "text-sm font-medium"
+                message.className = "text-sm font-medium"
                 return;
             }//returnの後に何も返さないという意味
             
